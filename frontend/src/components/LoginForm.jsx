@@ -7,12 +7,27 @@ export const LoginForm =()=> {
 
     const handleSubmit =async (e)=>{
         e.preventDefault();
-
-        const authObject={'Project-ID':"01472057-4daa-4240-83b5-55cc3387e02f",'User-Name':username , 'User-Password':password}
+        const data =  {
+            'Project-ID':"01472057-4daa-4240-83b5-55cc3387e02f",'User-Name':username , 'User-Password':password
+        };
+        // const authObject={'Project-ID':"01472057-4daa-4240-83b5-55cc3387e02f",'User-Name':username , 'User-Password':password}
 try {
-    
-await axios.get('https://api.chatengine.io/chats',{ headers:authObject});
-
+    var config = {
+        method: 'get',
+        url: 'https://api.chatengine.io/chats',
+        headers: {
+            'PRIVATE-KEY': '7533ee0e-7305-4ea3-8b11-534ee0f26518'
+        },
+        data : data
+    };
+//await axios.get('https://api.chatengine.io/chats',{ headers:authObject});
+axios(config)
+.then(function (response) {
+	console.log(JSON.stringify(response.data));
+})
+.catch(function (error) {
+	console.log(error);
+});
 localStorage.setItem('username',username);
 localStorage.setItem('password',password);
 
